@@ -1,9 +1,15 @@
 
 import './App.css'
 import ShahanLanding from './components/ShahanLanding'
+import CavalliLanding from './components/CavalliLanding'
 
 function App() {
-  return <ShahanLanding />
+  return (
+    <>
+      <CavalliLanding />
+      <ShahanLanding />
+    </>
+  );
 }
 
-export default App
+export default App 
