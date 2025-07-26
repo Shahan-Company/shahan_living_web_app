@@ -11,47 +11,20 @@ const ShahanLanding = () => {
 
   const features = [
     {
-      title: "Book Anytime, Anywhere",
-      subtitle: "Seamless Booking Experience",
-      description: "Access premium facilities like DDK Sport Club with our intuitive booking system. Reserve gym equipment, spa services, and recreational facilities 24/7 from the comfort of your home.",
       image: screen1,
-      highlights: ["24/7 Booking Access", "Premium Facilities", "Real-time Availability", "Instant Confirmation"]
     },
     {
-      title: "All Services, One Tap Away",
-      subtitle: "Comprehensive Concierge Services",
-      description: "From rubbish collection to valet parking, manage all your residential needs through our comprehensive service platform. Submit requests, track progress, and communicate with our team effortlessly.",
       image: screen2,
-      highlights: ["Concierge Services", "Maintenance Requests", "Valet Parking", "Emergency Support"]
     },
     {
-      title: "Everything You Need At Your Fingertips",
-      subtitle: "Centralized Living Management",
-      description: "Your personal dashboard provides instant access to bookings, home management, enquiries, and community announcements. Stay connected with your living environment like never before.",
       image: screen3,
-      highlights: ["Personal Dashboard", "Community Updates", "Home Management", "Quick Access Menu"]
     },
     {
-      title: "Explore, Share",
-      subtitle: "Community Social Platform",
-      description: "Connect with your neighbors, share experiences, and discover community events. Our social platform fosters a vibrant residential community where residents can interact and engage.",
       image: appScreen1,
-      highlights: ["Resident Network", "Community Posts", "Event Discovery", "Social Interaction"]
     }
   ];
 
-  const detectOS = () => {
-    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-    if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-      return 'iOS';
-    }
-    if (/android/i.test(userAgent)) {
-      return 'Android';
-    }
-    return 'Unknown';
-  };
 
-  // Fetch the APK URL when component mounts
   useEffect(() => {
     const fetchAppData = async () => {
       try {
@@ -66,24 +39,12 @@ const ShahanLanding = () => {
           },
         });
 
-        console.log('Response status:', response.status);
-        console.log('Response ok:', response.ok);
-
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-
         const result = await response.json();
-        console.log('App data fetched:', result);
-        console.log('Download URL:', result.downloadUrl);
-
         setData(result);
       } catch (error) {
-        console.error('Failed to fetch app data:', error);
-        console.error('Error details:', error.message);
-
-        // Fallback: Try with XMLHttpRequest like your original code
-        console.log('Trying with XMLHttpRequest...');
         const xhr = new XMLHttpRequest();
         xhr.open('GET', 'https://urchin-app-gscbk.ondigitalocean.app/getUrlApk');
         xhr.onload = function () {
@@ -106,7 +67,7 @@ const ShahanLanding = () => {
           setLoading(false);
         };
         xhr.send();
-        return; // Exit here if using XHR fallback
+        return; 
       } finally {
         setLoading(false);
       }
@@ -115,7 +76,6 @@ const ShahanLanding = () => {
     fetchAppData();
   }, []);
 
-  // Handle download based on OS
   const handleDownload = (platform) => {
     if (platform === 'iOS') {
       window.open('https://apps.apple.com/app/shahan', '_blank');
@@ -215,32 +175,7 @@ const ShahanLanding = () => {
                   )}
                 </button>
               </div>
-              {/* Debug info - Enhanced for troubleshooting */}
-              {/* <div className="mt-4 text-sm text-gray-400 bg-gray-800 p-4 rounded-lg">
-                <p><strong>Loading:</strong> {loading ? 'Yes' : 'No'}</p>
-                <p><strong>Data:</strong> {data ? 'Available' : 'Not Available'}</p>
-                {data && (
-                  <>
-                    <p><strong>APK Version:</strong> {data.versionName || 'N/A'}</p>
-                    <p><strong>Version Code:</strong> {data.versionCode || 'N/A'}</p>
-                    <p><strong>Download URL:</strong> {data.downloadUrl ? 'Available' : 'Not Available'}</p>
-                    <p><strong>Update Message:</strong> {data.updateMessage || 'N/A'}</p>
-                    {data.downloadUrl && (
-                      <p><strong>URL Preview:</strong> {data.downloadUrl.substring(0, 50)}...</p>
-                    )}
-                  </>
-                )}
-                <p><strong>API Endpoint:</strong> https://urchin-app-gscbk.ondigitalocean.app/getUrlApk</p>
-                <button
-                  onClick={() => {
-                    console.log('Manual fetch triggered');
-                    window.location.reload();
-                  }}
-                  className="mt-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded text-white"
-                >
-                  Retry Fetch
-                </button>
-              </div> */}
+              
             </div>
 
             {/* Social Media */}
@@ -305,51 +240,7 @@ const ShahanLanding = () => {
         </div>
 
         {/* Features Section */}
-        <div className="py-20">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
-              App Features
-            </h2>
-            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-              Discover how our comprehensive platform transforms residential living through innovative technology and seamless user experience.
-            </p>
-          </div>
-
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            {features.map((feature, index) => (
-              <div
-                key={index}
-                className={`space-y-8 transition-all duration-700 ${activeFeature === index ? 'opacity-100' : 'opacity-60'
-                  }`}
-                onMouseEnter={() => setActiveFeature(index)}
-              >
-                <div className="space-y-4">
-                  <h3 className="text-3xl sm:text-4xl font-bold">
-                    {feature.title}
-                  </h3>
-                  <h4 className="text-xl text-gray-400 font-medium">
-                    {feature.subtitle}
-                  </h4>
-                  <p className="text-lg text-gray-300 leading-relaxed">
-                    {feature.description}
-                  </p>
-                </div>
-
-                <div className="grid grid-cols-2 gap-4">
-                  {feature.highlights.map((highlight, idx) => (
-                    <div
-                      key={idx}
-                      className="flex items-center gap-3 p-4 bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl"
-                    >
-                      <div className="w-2 h-2 bg-white rounded-full"></div>
-                      <span className="text-sm font-medium">{highlight}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+        
       </div>
     </div>
   );

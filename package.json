@@ -1,5 +1,6 @@
 {
   "name": "shahan_living_app",
+  "homepage": "http://applications.shahan-properties.com",
   "private": true,
   "version": "0.0.0",
   "type": "module",
