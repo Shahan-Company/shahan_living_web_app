@@ -1,8 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import screen1 from '../assets/screen_1.png';
-import screen2 from '../assets/app-screen-1.png';
-import screen3 from '../assets/screen_3.png';
-import appScreen1 from '../assets/screen_2.png';
 
 const ShahanLanding = () => {
   const [activeFeature, setActiveFeature] = useState(0);
@@ -11,16 +7,16 @@ const ShahanLanding = () => {
 
   const features = [
     {
-      image: screen1,
+      image: 'https://firebasestorage.googleapis.com/v0/b/shahan-life.appspot.com/o/app%20screen%20shoot%2FFINGERTIPS.png?alt=media&token=d37baf99-2dec-434a-9512-a11af8b6ef2d',
     },
     {
-      image: screen2,
+      image: 'https://firebasestorage.googleapis.com/v0/b/shahan-life.appspot.com/o/app%20screen%20shoot%2Fexplore.png?alt=media&token=116c5492-3038-428a-aea8-fa27132a15b5',
     },
     {
-      image: screen3,
+      image: 'https://firebasestorage.googleapis.com/v0/b/shahan-life.appspot.com/o/app%20screen%20shoot%2FBOOKv.png?alt=media&token=75152d9e-f34d-4046-80df-0ec9e037baaf',
     },
     {
-      image: appScreen1,
+      image: 'https://firebasestorage.googleapis.com/v0/b/shahan-life.appspot.com/o/app%20screen%20shoot%2FEXPLORE%20SHARE%20copy.png?alt=media&token=9b0fb0d8-75f2-4a53-b787-341948597df7',
     }
   ];
 
@@ -28,9 +24,8 @@ const ShahanLanding = () => {
     const fetchAppData = async () => {
       try {
         setLoading(true);
-        const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-        const targetUrl = 'https://urchin-app-gscbk.ondigitalocean.app/getUrlApk';
-
+             const proxyUrl = import.meta.env.VITE_PROXY_URL;
+      const targetUrl = import.meta.env.VITE_TARGET_URL;
         const response = await fetch(proxyUrl + targetUrl, {
           method: 'GET',
           headers: {
@@ -44,14 +39,13 @@ const ShahanLanding = () => {
         const result = await response.json();
         setData(result);
       } catch (error) {
-        const xhr = new XMLHttpRequest();
-        xhr.open('GET', 'https://urchin-app-gscbk.ondigitalocean.app/getUrlApk');
+              const xhr = new XMLHttpRequest();
+      const targetUrl = import.meta.env.VITE_TARGET_URL;
+        xhr.open('GET', targetUrl);
         xhr.onload = function () {
-          console.log('XHR status:', xhr.status);
           if (xhr.status === 200) {
             try {
               const result = JSON.parse(xhr.responseText);
-              console.log('XHR data fetched:', result);
               setData(result);
             } catch (parseError) {
               console.error('JSON parse error:', parseError);

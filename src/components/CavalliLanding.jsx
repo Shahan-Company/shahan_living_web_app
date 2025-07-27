@@ -1,27 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import screen1 from '../assets/screen_1.png';
-import screen2 from '../assets/app-screen-1.png';
-import screen3 from '../assets/screen_3.png';
-import appScreen1 from '../assets/screen_2.png';
 
 const CavalliLanding = () => {
   const [activeFeature, setActiveFeature] = useState(0);
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
-
-
   const features = [
     {
-      image: 'https://firebasestorage.googleapis.com/v0/b/shahan-homes.firebasestorage.app/o/img%20port%2F4.png?alt=media&token=2e2316bc-fb85-4496-b758-ef2fff5d5985',
+      image: 'https://firebasestorage.googleapis.com/v0/b/shahan-homes.firebasestorage.app/o/img%20port%2FHOME.png?alt=media&token=b62e2991-6098-4648-a9a1-482c9f6a41c0',
     },
     {
-      image: 'https://firebasestorage.googleapis.com/v0/b/shahan-homes.firebasestorage.app/o/img%20port%2FArtboard%201%20copy.png?alt=media&token=d6defff2-1899-4aa3-bf64-2690d0c2e878',
+      image: 'https://firebasestorage.googleapis.com/v0/b/shahan-homes.firebasestorage.app/o/img%20port%2FSERVICES.png?alt=media&token=50766378-f82c-4d73-b62d-624da32d5d92',
     },
     {
-      image: 'https://firebasestorage.googleapis.com/v0/b/shahan-homes.firebasestorage.app/o/img%20port%2FArtboard%201%20copy%203.png?alt=media&token=33f250b9-7fed-4d23-8751-78830244efb9',
+      image: 'https://firebasestorage.googleapis.com/v0/b/shahan-homes.firebasestorage.app/o/img%20port%2FMANAGE.png?alt=media&token=61a1c1ff-0f8a-49f1-9b4b-90646bd9b1ae',
     },
     {
-      image: 'https://firebasestorage.googleapis.com/v0/b/shahan-homes.firebasestorage.app/o/img%20port%2FArtboard%201%20copy%202.png?alt=media&token=a45dcb92-698e-4da5-aea3-1adc48eb8623',
+      image: 'https://firebasestorage.googleapis.com/v0/b/shahan-homes.firebasestorage.app/o/img%20port%2FSERVICES-1.png?alt=media&token=c47353a0-ebc3-41e7-98cd-996fab6391e6',
     }
   ];
 
@@ -29,8 +23,8 @@ const CavalliLanding = () => {
     const fetchAppData = async () => {
       try {
         setLoading(true);
-        const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-        const targetUrl = 'https://urchin-app-gscbk.ondigitalocean.app/getUrlApk';
+               const proxyUrl = import.meta.env.VITE_PROXY_URL;
+      const targetUrl = import.meta.env.VITE_TARGET_URL;
 
         const response = await fetch(proxyUrl + targetUrl, {
           method: 'GET',
@@ -39,34 +33,23 @@ const CavalliLanding = () => {
           },
         });
 
-        console.log('Response status:', response.status);
-        console.log('Response ok:', response.ok);
-
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-
-        const result = await response.json();
-        console.log('App data fetched:', result);
-        console.log('Download URL:', result.downloadUrl);
+        const result = await response.json()
 
         setData(result);
       } catch (error) {
-        console.error('Failed to fetch app data:', error);
-        console.error('Error details:', error.message);
-
-        console.log('Trying with XMLHttpRequest...');
         const xhr = new XMLHttpRequest();
-        xhr.open('GET', 'https://urchin-app-gscbk.ondigitalocean.app/getUrlApk');
+              const targetUrl = import.meta.env.VITE_TARGET_URL;
+
+        xhr.open('GET', targetUrl);
         xhr.onload = function () {
-          console.log('XHR status:', xhr.status);
           if (xhr.status === 200) {
             try {
               const result = JSON.parse(xhr.responseText);
-              console.log('XHR data fetched:', result);
               setData(result);
             } catch (parseError) {
-              console.error('JSON parse error:', parseError);
             }
           } else {
             console.error('XHR failed with status:', xhr.status);
@@ -74,11 +57,10 @@ const CavalliLanding = () => {
           setLoading(false);
         };
         xhr.onerror = function () {
-          console.error('XHR network error');
           setLoading(false);
         };
         xhr.send();
-        return; // Exit here if using XHR fallback
+        return;
       } finally {
         setLoading(false);
       }
@@ -90,7 +72,7 @@ const CavalliLanding = () => {
   // Handle download based on OS
   const handleDownload = (platform) => {
     if (platform === 'iOS') {
-      window.open('https://apps.apple.com/app/shahan', '_blank');
+      window.open('https://apps.apple.com/us/app/cavalli-living/id6743818963', '_blank');
     } else if (platform === 'Android') {
       if (data?.downloadUrl) {
         window.open(data.downloadUrl, '_blank');
@@ -258,8 +240,6 @@ const CavalliLanding = () => {
             </div>
           </div>
         </div>
-
-        {/* Features Section */}
 
       </div>
     </div>
