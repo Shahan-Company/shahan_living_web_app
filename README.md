@@ -1,4 +1,4 @@
-# Example README for a React + Vite Profile App with External API
+
 
 A great GitHub README and project landing page serves as both a technical reference and a showcase for your app. Below is an example structure and sample content for a README that could be used for a profile app built with React, Vite, and an external API. You can copy, adapt, and fill in your own details.
 
@@ -7,6 +7,8 @@ A great GitHub README and project landing page serves as both a technical refere
 # Awesome Profile App
 
 ## 🚀 Description
+
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
 
 Awesome Profile App is a modern web application that allows users to create, view, and customize profile pages. Built with React and Vite for blazing-fast development and deployment, the app leverages an external API to fetch up-to-date user information and display personalized data in real-time[1][2].
 
@@ -87,9 +89,3 @@ Contributions are welcome! Please open issues or pull requests with suggestions.
 This project is licensed under the MIT License.
 
 ## 📚 References & Recommended Links
-
-- [Vite + React RealWorld Example App][1]
-- [How to write README files like a pro][5]
-- [Demo React Profile App Template][2]
-- [Deploying React Application to Github Pages with Vite][3][4]
-- [Landing Page Design Inspiration][6]
